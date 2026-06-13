@@ -7,6 +7,8 @@ AWSのみ対応
 ### 標準チェック（全リージョン対象）
 - **Security Hub CSPM**: CSPM の有効化・標準数をチェック
 - **Security Hub Advanced**: Security Hub Advanced の有効化をチェック
+- **Security Hub Add-on (GuardDuty)**: Add-on Capabilities の GuardDuty 項目（基本脅威検出、EC2マルウェア、EKS/S3/Lambda/RDS保護、Runtime Auto Management 3種）を個別判定（Security Hub Advanced が無効な場合は `warn` として underlying service の状態を表示）
+- **Security Hub Add-on (Inspector)**: Add-on Capabilities の Inspector 項目（EC2/ECR/Lambda/Lambda Code/Code Security）を個別判定（Security Hub Advanced が無効な場合は `warn` として underlying service の状態を表示）
 - **GuardDuty**: 有効化、Findings Export（S3）、保護プラン（S3/EKS/RDS/Lambda/Runtime）、マルウェア保護（EC2/S3）の状態を確認
 - **IAM Access Analyzer**: アナライザーの存在確認
 - **AWS Config**: レコーダーの有効化・記録状態を確認
@@ -36,6 +38,7 @@ oreno-sec-posture-checker/
 │   ├── types.go             # CheckResult 型定義
 │   ├── config.go            # AWS 設定ロード/リージョン検出
 │   ├── securityhub.go       # Security Hub CSPM / Advanced (v2) チェック
+│   ├── securityhub_addon.go # Security Hub Add-on Capabilities チェック
 │   ├── guardduty.go         # GuardDuty チェック（5項目）
 │   ├── iam.go               # IAM Access Analyzer チェック
 │   ├── configservice.go     # AWS Config チェック

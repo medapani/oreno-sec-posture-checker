@@ -86,12 +86,14 @@ type checkTask struct {
 }
 
 func (c *Checker) buildTasks(ctx context.Context, regions []string) []checkTask {
-	tasks := make([]checkTask, 0, len(regions)*13+3)
+	tasks := make([]checkTask, 0, len(regions)*16+3)
 
 	for _, region := range regions {
 		r := region
 		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckSecurityHubCSPM(ctx, r) }})
 		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckSecurityHubAdvanced(ctx, r) }})
+		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckSecurityHubAddonCapabilitiesGuardDuty(ctx, r) }})
+		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckSecurityHubAddonCapabilitiesInspector(ctx, r) }})
 		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckGuardDuty(ctx, r) }})
 		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckGuardDutyFindingsExport(ctx, r) }})
 		tasks = append(tasks, checkTask{run: func() CheckResult { return c.CheckGuardDutyProtectionPlans(ctx, r) }})
